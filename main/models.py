@@ -1,6 +1,7 @@
+import uuid
 from django.db import models
 
-class Items(models.Model):
+class Item(models.Model):
     CATEGORY_CHOICES = [
         ('footwear', 'Footwear'),
         ('accessories', 'Accessories'),
@@ -10,6 +11,7 @@ class Items(models.Model):
         ('other', 'Other')
     ]
     
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     brand = models.CharField(max_length=255)
     price = models.IntegerField()
@@ -21,7 +23,7 @@ class Items(models.Model):
     item_sold = models.PositiveIntegerField(default=0)
     
     def __str__(self):
-        return self.title
+        return self.name
     
     @property
     def is_item_popular(self):
