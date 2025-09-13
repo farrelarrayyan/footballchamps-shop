@@ -2,7 +2,7 @@ Farrel Arrayyan Adrianshah - 2406406710 - PBP C
 
 Link PWS: https://farrel-arrayyan-footballchamps.pbp.cs.ui.ac.id/
 
-# [Tugas 1]
+# [Tugas 2]
 
 **1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step**
 
@@ -49,3 +49,45 @@ Django merupakan framework web yang menggunakan bahasa python, bahasa pemrograma
 **6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?**
 
 Menurut saya, tutorial 1 sudah berjalan dengan lancar dengan dokumen panduan yang mudah untuk diikuti, bahkan untuk pemula. Saya sangat berterima kasih kepada asdos untuk arahannya.
+
+# [Tugas 3]
+**1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?**
+
+--> Dengan melakukan data delivery, kita bisa memastikan bahwa data dapat dikirim, diterima, dan diproses antar stack atau komponen-komponen platform (misal, antara backend, frontend, dan database). Data delivery biasanya juga dilakukan dengan format standar seperti XML dan JSON, sehingga perbedaan dalam berbagai sistem tidak mempengaruhi pemahaman dan pemrosesan data. 
+
+**2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?**
+
+--> Setelah mencari tahu lebih lanjut terhadap kelebihan dan kekurangan dari masing-masing format, menurut saya bentuk JSON lebih baik dibandingkan XML. JSON memiliki sintaks yang lebih singkat dan lebih mudah untuk dibaca dibandingkan XML. Dalam tampilan peramban web yang saya pakai, data JSON juga disajikan dengan lebih rapi dibandingkan dengan data XML. Saya mempelajari bahwa JSON lebih populer dibandingkan XML karena JSON lebih sederhana secara struktur, lebih cepat diproses, dan lebih mudah untuk dibaca oleh JavaScript.
+
+**3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?**
+
+--> method ```is_valid()``` merupakan method yang akan menjalankan proses *form validation* yang disediakan oleh Django. Proses ini akan membersihkan data dan memastikan bahwa data yang dimasukkan pengguna dalam suatu form sudah valid dan mengikuti peraturan yang sudah ditentukan dalam *field* tersebut. Kita membutuhkan method ini untuk memastikan bahwa data yang masuk ke dalam database terjamin sesuai dan tidak menimbulkan error, baik saat penyimpanan maupun penampilan.
+
+**4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?**
+
+--> CSRF merupakan singkatan dari *Cross Site Request Forgery*. CSRF bekerja dengan mengeksploitasi *credentials* yang tersimpan dalam peramban web untuk melakukan tindakan yang tidak diinginkan pengguna.  ```csrf_token``` mematikan bahwa request dalam form berasal dari pengguna dan domain yang sah. Jika kita tidak menambahkan ```csrf_token```, maka aplikasi kita akan lebih rentan terhadap serangan CSRF dan penyerang dapat mengirim request berbahaya yang seolah-olah berasal dari pengguna.
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
+- Membuat dan mengimplementasi skeleton untuk kerangka views dari situs web dengan membuat direktori templates dalam root dan menambahkan berkas base.html.
+- Mengubah berkas settings.py pada direktori proyek untuk memperbarui direktori template yang digunakan (menjadi ```BASE_DIR / 'templates'```)
+- Memperbarui main.html pada direktori template main untuk menambahkan template tags Django dan menghubungkannya dengan base.html.
+- Rename class model ```Items``` menjadi ```Item``` untuk mengindari kerancuan dalam penamaan, kemudian melakukan migrasi database untuk menerapkan perubahan pada model.
+- Membuat berkas forms.py pada direktori main untuk input data produk pada HTML. berkas ini berisi struktur form yang dapat menerima data item baru (dengan model = Item, dan menambahkan fields yang relevan dengan model Item yang telah dibuat sebelumnya).
+- Mengubah berkas views.py pada main dengan menambahkan import yang dibutuhkan **(redirect, get_object_or_404, ItemForm, Items)**, membuat item_list, dan menambahkan fungsi yang relevan untuk pembuatan dan penampilan item penjualan **(create_item, show_item)**
+- Mengubah berkas urls.py pada direktori main dengan mengimport fungsi-fungsi yang telah dibuat dan menambahkan path URL ke variabel urlpatterns.
+- Mengubah main.html pada direktori templates main untuk menampilkan data item dan menambahkan tombol "Add Item" yang akan membawa ke halaman form
+- Membuat berkas create_item dan item_detail pada direktori templates main.
+- Menambahkan entri url proyek pws ke ```CSRF_TRUSTED_ORIGINS``` pada berkas settings.py
+- Menambahkan import dan fungsi yang diperlukan pada berkas views.py untuk mengembalikan data dalam format xml dan JSON. Diikuti dengan penambahan import fungsi dan path url di berkas urls.py.
+- Menambahkan atribut id pada model dengan tipe UUIDField pada berkas models.py dan melakukan migrasi.
+- Menambahkan fungsi yang dibutuhkan untuk mengembalikan data XML dan JSON menggunakan id pada berkas views,py, serta menambahkan import dan path url ke berkas urls.py.
+- Menjalankan server Django local untuk memastikan form (penambahan dan penampilan produk) dan data delivery (dengan XML atau JSON) sudah berjalan dengan baik.
+- Melakukan push ke repositori GitHub dan PWS.
+- Memastikan bahwa project sudah berjalan dengan baik pada deployment PWS.
+- Ternyata di PWS belum berjalan dengan baik karena kendala dengan file ```0001_initial.py``` pada direktori main/migrations. Setelah dibuat ulang dengan perintah ```python manage.py makemigrations main``` dan push ulang ke PWS, aplikasi sudah berjalan lancar.
+
+**6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?**
+
+--> Tutorial 2 sudah sangat mudah untuk diikuti, walaupun topik pembahasannya semakin kompleks. Terima kasih asdos!
+
+**Postman Image Link:** https://drive.google.com/drive/folders/1utm7dYZ2r_OGNO8bfeQwa2LU9CGtjrVw?usp=sharing
