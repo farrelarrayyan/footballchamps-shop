@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 
-class Item(models.Model):
+class Product(models.Model):
     CATEGORY_CHOICES = [
         ('footwear', 'Footwear'),
         ('accessories', 'Accessories'),
@@ -20,15 +20,15 @@ class Item(models.Model):
     thumbnail = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
     is_popular = models.BooleanField(default=False) # modifikasi dari is_featured
-    item_sold = models.PositiveIntegerField(default=0)
+    product_sold = models.PositiveIntegerField(default=0)
     
     def __str__(self):
         return self.name
     
     @property
-    def is_item_popular(self):
-        return self.item_sold > 50
+    def is_product_popular(self):
+        return self.product_sold > 50
         
     def increment_sale(self):
-        self.item_sold += 1
+        self.product_sold += 1
         self.save()
