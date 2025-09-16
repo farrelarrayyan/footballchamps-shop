@@ -85,7 +85,7 @@ Menurut saya, tutorial 1 sudah berjalan dengan lancar dengan dokumen panduan yan
 - Melakukan push ke repositori GitHub dan PWS.
 - Memastikan bahwa project sudah berjalan dengan baik pada deployment PWS.
 - Ternyata di PWS belum berjalan dengan baik karena kendala dengan file ```0001_initial.py``` pada direktori main/migrations. Setelah dibuat ulang dengan perintah ```python manage.py makemigrations main``` dan push ulang ke PWS, aplikasi sudah berjalan lancar.
-- Mengubah nama model dari ```Item``` ke ```Product``` agar sesuai dengan ketentuan.
+- Mengubah nama model beserta semua reference dalam berkas-berkas lainnya dari ```Item``` ke ```Product``` agar sesuai dengan ketentuan.
 
 **6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?**
 
