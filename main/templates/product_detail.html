@@ -5,6 +5,12 @@
 <h1>{{ product.name }}</h1>
 <p><b>Price: {{ product.price }}</b> | Brand: {{ product.brand }} | Stock: {{ product.stock }} | <b>{{ product.get_category_display }}</b>{% if product.is.product_popular %} | 
     <b>Popular</b>{% endif %} </p>
+    
+{% if product.user %}
+    <p>Seller: {{ product.user.username }}</p>
+{% else %}
+    <p>Seller: Anonymous</p>
+{% endif %}
 
 {% if product.thumbnail %}
 <img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
@@ -12,5 +18,7 @@
 {% endif %}
 
 <p>{{ product.description }}</p>
+
+
 
 {% endblock content %}
