@@ -92,3 +92,64 @@ Menurut saya, tutorial 1 sudah berjalan dengan lancar dengan dokumen panduan yan
 --> Tutorial 2 sudah sangat mudah untuk diikuti, walaupun topik pembahasannya semakin kompleks. Terima kasih asdos!
 
 **Postman Image Link:** https://drive.google.com/drive/folders/1utm7dYZ2r_OGNO8bfeQwa2LU9CGtjrVw?usp=sharing
+
+# [Tugas 4]
+**1. Apa itu Django ```AuthenticationForm?``` Jelaskan juga kelebihan dan kekurangannya.**
+
+--> ```AuthenticationForm``` adalah form bawaan Django yang berguna untuk proses login. Form ini praktis untuk dipakai karena akan otomatis memvalidasi input username dan password serta mengembalikan objek ```User``` jika username dan password yang diberikan benar. Karena form ini sudah *built-in* dalam Django, maka proses autentikasi juga sudah terhubung dengan sistem autentikasi Django. Kekurangannya adalah sistem login yang ditawarkan cukup sederhana, sehingga kurang cocok jika membutuhkan sistem login yang lebih kompleks (misalnya menggunakan multi-factor authentication atau biometrik). 
+
+**2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?**
+
+--> Autentikasi memverifikasi identitas pengguna, sedangkan otorisasi menentukan apa saja yang boleh dilakukan oleh suatu pengguna terautentikasi. Misalnya, seroang admin dapat mengakses keseluruhan aplikasi, namun user biasa hanya bisa melihat bagian tertentu saja. Django mengimplementasikan autentikasi menggunakan sistem login bawaan seperti ```AuthenticationForm```, ```authenticate()```, ```login()``` dan ```logout()```, sedangkan otorisasi diimplementasikan dengan menggunakan decorator bawaan seperti ```@login_required```.
+
+
+**3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?**
+
+|               | Session                                                                | Cookies                                                          |
+|---------------|------------------------------------------------------------------------|------------------------------------------------------------------|
+| **Kelebihan** | - Lebih aman karena tidak tersimpan langsung di perangkat pengguna     | - Tidak membebani server                                         |
+|               | - Bisa menyimpan data lebih banyak                                     | - Praktis untuk menyimpan data ringan (seperti waktu last login) |
+|               | - Cocok untuk data penting (seperti informasi login)                   | - Waktu kedaluarsa dapat diatur secara manual                    |
+| **Kekurangan**| - Membebani server                                                     | - Kapasitas terbatas hingga 4KB                                  |
+|               | - Manajemen lebih kompleks jika jumlah data sangat banyak              | - Lebih rentan dicuri/disalahgunakan                             |
+
+
+
+**4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?**
+
+--> Tidak, karena cookies rentan terhadap:
+- **XSS *(Cross-Site Scripting)*:** seroang *attacker* dapat mencuri cookie lewat script berbahaya.
+- ***Session Hijacking*:** jika *attacker* dapat mencuri cookie yang berisi Session ID, maka mereka bisa login sebagai user korban.
+- **CSRF *(Cross Site Request Forgery)*:** *attacker* dapat melakukan request yang tidak sah dan menyalahgunakan cookie.
+
+Django menangani hal tersebut dengan menyediakan beberapa fitur keamanan, seperti:
+- ```csrf_token``` untuk mencegah serangan CSRF.
+- ```SESSION_COOKIE_SECURE=True``` untuk memastikan bahwa cookie hanya dikirim lewat HTTPS 
+- ```SESSION_COOKIE_AGE = xxx``` untuk menentukan batas kedaluwarsa cookie.
+
+referensi:
+- https://docs.djangoproject.com/en/5.2/topics/security/
+- https://medium.com/@altafkhan_24475/a-quick-guide-to-django-session-settings-d2ac0f1a01a4
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step**
+
+- Membuat fitur registrasi pada ```views.py``` main dengan menambahkan import ```UserCreationForm``` dan ```messages``` serta menambahkan fungsi ```register```.
+- Membuat template baru pada ```main/templates``` bernama ```register.html``` yang akan digunakan untuk halaman pembuatan akun baru.
+- Menambahkan fungsi register ke dalam file ```urls.py``` dengan mengimport fungsi dan menambahkan path url pada ```urlpatterns```.
+- Membuat fitur login pada ```views.py``` main dengan menambahkan import ```AuthenticationForm```, ```authenticate``` dan ```login``` serta menambahkan fungsi ```login_user```.
+- Membuat template baru pada ```main/templates``` bernama ```login.html``` yang akan digunakan untuk halaman pembuatan akun baru.
+- Menambahkan fungsi login ke dalam file ```urls.py``` dengan mengimport fungsi dan menambahkan path url pada ```urlpatterns```.
+- Membuat fitur logout pada ```views.py``` main dengan menambahkan import ```logout``` serta menambahkan fungsi ```logout_user```.
+- Menambahkan tombol logout pada ```main.html```.
+- Menambahkan fungsi logout ke dalam file ```urls.py``` dengan mengimport fungsi dan menambahkan path url pada ```urlpatterns```.
+- Membatasi akses halaman main dan product detail dengan import ```login_required``` pada ```views.py``` dan menerapkannya pada fungsi show_main dan show_product dengan menambahkan decorator.
+- Mengimplementasikan penggunaan data dari cookies dengan menambahkan import ```datetime```, ```HttpResponseRedirect```, dan ```reverse``` serta memodifikasi fungsi ```login_user```, ```logout_user``` dan ```show_main``` untuk menyimpan, menerima, dan menghapus cookie berisi timestamp terakhir pengguna melakukan login.
+- Memodifikasi berkas ```main.html``` agar menampilkan data waktu sesi terakhir login.
+- Menghubungkan model ```Product``` dengan ```User``` menggunakan mengimport ```User``` dari ```django.contrib.auth.models``` dan menambahkan attribute ```user``` ke model ```Product```.
+- Melakukan migrasi model dengan ```python manage.py makemigrations``` dan ```python manage.py migrate```.
+- Memodifikasi fungsi ```create_product``` pada ```views.py``` agar Django tidak langsung menyimpan objek hasil form ke database, sehingga kita bisa menyisipkan field ```user``` dengan user yang sedang login.
+- Memodifikasi fungsi ```show_main``` pada ```views.py``` untuk menerapkan fungsionalitas filtering berdasarkan user.
+- Menambahkan tombol untuk mengubah filter user pada ```main.html```.
+- Mencoba menjalankan server Django dan memastikan aplikasi berjalan lancar.
+- Melakukan add-commit-push ke GitHub dan PWS.
+- Mencoba menjalankan aplikasi di deployment PWS dan memastikan bahwa seluruh fitur sudah berjalan lancar.
