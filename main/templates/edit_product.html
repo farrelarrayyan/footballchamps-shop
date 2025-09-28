@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block meta %}
-<title>List New Product - FootballChamps Shop</title>
+<title>Edit Product - Football Product</title>
 {% endblock meta %}
 
 {% block content %}
@@ -9,16 +11,17 @@
     
     <!-- Back Navigation -->
     <div class="mb-6">
-      <a href="{% url 'main:show_main' %}" class="text-[#ff7b00] hover:text-[#e06d00] font-medium transition-colors">
-        ← Go Back Home
+      <a href="{% url 'main:show_main' %}" 
+         class="text-gray-400 hover:text-gray-200 font-medium transition-colors">
+        ← Back to Product
       </a>
     </div>
     
     <!-- Form -->
-    <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 sm:p-8">
+    <div class="bg-gray-800 rounded-2xl shadow-sm border border-gray-700 p-6 sm:p-8">
       <div class="mb-8">
-        <h1 class="text-2xl font-bold text-white mb-2">Create New Product</h1>
-        <p class="text-gray-400">List your product to other champs.</p>
+        <h1 class="text-2xl font-bold text-white mb-2">Edit Product</h1>
+        <p class="text-gray-400">Got something wrong? Don’t fret- let's update some details.</p>
       </div>
       
       <form method="POST" class="space-y-6">
@@ -35,19 +38,20 @@
               <p class="mt-1 text-sm text-gray-500">{{ field.help_text }}</p>
             {% endif %}
             {% for error in field.errors %}
-              <p class="mt-1 text-sm text-red-500">{{ error }}</p>
+              <p class="mt-1 text-sm text-red-400">{{ error }}</p>
             {% endfor %}
           </div>
         {% endfor %}
         
+        <!-- Actions -->
         <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-700">
           <a href="{% url 'main:show_main' %}" 
-             class="order-2 sm:order-1 px-6 py-3 border border-gray-600 text-gray-400 rounded-md font-medium hover:text-gray-200 hover:border-gray-400 transition-colors text-center">
+             class="order-2 sm:order-1 px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-medium hover:bg-gray-700 hover:text-white transition-colors text-center">
             Cancel
           </a>
           <button type="submit" 
-                  class="order-1 sm:order-2 flex-1 bg-[#ff7b00] text-white px-6 py-3 rounded-md font-medium hover:bg-[#e06d00] transition-colors">
-            List This Item!
+                  class="order-1 sm:order-2 flex-1 bg-[#ff7b00] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#e06d00] transition-colors shadow-sm">
+            Confirm Edits
           </button>
         </div>
       </form>

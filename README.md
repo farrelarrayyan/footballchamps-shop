@@ -153,3 +153,59 @@ referensi:
 - Mencoba menjalankan server Django dan memastikan aplikasi berjalan lancar.
 - Melakukan add-commit-push ke GitHub dan PWS.
 - Mencoba menjalankan aplikasi di deployment PWS dan memastikan bahwa seluruh fitur sudah berjalan lancar.
+
+# [Tugas 5]
+**1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
+--> Urutannya akan dipilih berdasarkan hierarki *specificity* di CSS:
+- **Inline style**: gaya langsung di atribut HTML (misal ```<p style="color:blue;">```)
+- **ID Selector**: menggunakan # (misal ```#header {color: red;}```)
+- **Classes, attribute selectors, dan pseudo-classes**: misal ```.xxx {color: green;}```, ```[type="xxx"] {border: 2px solid red;}```, dan ```:xxx {background-color: yellow;}```
+- **Elements dan pseudo-elements**: misal ``h1 {font-size: 30px;}``, ```::before {color: red;}```, dan ```::after {color: blue;}```
+- **Universal selector dan :where()**: ```* {font-family: Arial;}``` dan ```where(.xxx){color: purple;}```
+
+Referensi: https://www.w3schools.com/css/css_specificity.asp
+
+
+**2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!**
+--> Responsive design berarti tampilan website dapat menyesuaikan dengan ukuran layar. Hal ini penting karena sekarang, suatu website dapat diakses dari berbagai jenis perangkat yang masing-masing memiliki ukuran berbeda (misalnya adalah perbandingan antara ukuran layar PC/Laptop, Tablet, dengan Smartphone). Design yang responsive memastikan bahwa website dapat digunakan secara nyaman, tidak memandang perangkat yang digunakan oleh pengguna. 
+
+Contoh website yang sudah menerapkan responsive design adalah Wikipedia, dimana layout navbar, informasi, dan ukuran teks disesuaikan dengan ukuran layar. Sedangkan, contoh website yang belum menerapkan responsive design adalah SIAK-NG, dimana saat dibuka di layar berukuran kecil, semua tombol dan teks ikut menjadi kecil, sehingga pengguna harus zoom manual agar dapat membaca konten di dalamnya.
+
+**3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!**
+- **Margin:** ruang di luar elemen atau jarak ke elemen lain.
+- **Border:** garis tepi atau bingkai dari suatu elemen.
+- **Padding:** ruang antara isi (content) dan border dalam suatu elemen.
+
+Contoh implementasinya dalam CSS adalah sebagai berikut:
+```css
+.box {
+  margin: 20px;
+  border: 2px solid black;
+  padding: 10px;
+}
+```
+
+**4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!**
+- **Flexbox:** sistem tata letak satu dimensi. Flexbox memudahkan kita untuk mengatur elemen dalam satu baris atau satu kolom. Sistem tata letak ini cocok untuk menu horizontal, navbar, atau daftar item yang fleksibel (karena flexbox juga menyesuaikan tata letak dengan ukuran layar perangkat).
+
+- **Grid Layout:** sistem tata letak 2 dimensi (baris dan kolom). Mirip dengan sebuah tabel, *grid layout* mempermudah kita untuk menata elemen dengan memasukkannya ke dalam baris dan kolom tertentu. Sistem tata letak ini cocok untuk desain halaman penuh seperti galeri atau dashboard.
+
+Referensi: https://www.geeksforgeeks.org/css/comparison-between-css-grid-css-flexbox/
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!**
+- Menambahkan Tailwind ke aplikasi Django dengan menambahkan CDN Tailwind pada berkas ```base.html```.
+- Mengimplementaiskan fitur edit product dengan menambahkan fungsi ```edit_product``` pada berkas ```views.py``` dan menambahkan berkas ```edit_product.html``` pada direktori templates.
+- Menambahkan fungsi edit_product ke dalam file ```urls.py``` dengan mengimport fungsi dan menambahkan path url pada ```urlpatterns```.
+- Mengubah berkas ```main.html``` untuk menampilkan tombol edit di setiap produk yang ditampilkan.
+- Mengimplementasikan fitur delete product dengan menambahkan fungsi ```delete_product``` pada berkas ```views.py```.
+- Menambahkan fungsi delete_product ke dalam file ```urls.py``` dengan mengimport fungsi dan menambahkan path url pada ```urlpatterns```.
+- Mengubah berkas ```main.html``` untuk menampilkan tombol delete di setiap produk yang ditampilkan.
+- Menambahkan navbar dengan membuat berkas ```navbar.html``` pada direktori template root project dan menautkan ke bebrkas ```main.html``` dengan tags ```include```.
+- Mengonfigurasi static files dengan menambahkan middleware ```WhiteNoise``` serta mengubah variabel ```STATIC_ROOT```, ```STATICFILES_DIRS```, dan ```STATIC_URL``` pada berkas ```settings.py```
+- Menambahkan berkas ```global.css``` pada direktori ```static/css``` dan menghubungkannya dengan ```base.html```. 
+- Menambahkan *custom styling* ke ```global.css``` dengan tema dark background + orange accent color.
+- Menambahkan styling ke berkas ```navbar.html```, ```login.html```, dan ```register.html```sesuai dengan tema.
+- Membuat berkas ```card_product.html``` pada direktori templates dan menerapkan styling.
+- Menerapkan styling ke berkas ```main.html``` dan menambahkan tampilan saat produk masih kosong menggunakan static image.
+- Menerapkan styling ke berkas ```product_detail.html``` sesuai dengan tema.
+- Menerapkan styling ke berkas ```create_product.html``` sesuai dengan tema.
