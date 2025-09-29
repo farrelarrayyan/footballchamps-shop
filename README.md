@@ -156,6 +156,7 @@ referensi:
 
 # [Tugas 5]
 **1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!**
+
 --> Urutannya akan dipilih berdasarkan hierarki *specificity* di CSS:
 - **Inline style**: gaya langsung di atribut HTML (misal ```<p style="color:blue;">```)
 - **ID Selector**: menggunakan # (misal ```#header {color: red;}```)
@@ -167,6 +168,7 @@ Referensi: https://www.w3schools.com/css/css_specificity.asp
 
 
 **2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!**
+
 --> Responsive design berarti tampilan website dapat menyesuaikan dengan ukuran layar. Hal ini penting karena sekarang, suatu website dapat diakses dari berbagai jenis perangkat yang masing-masing memiliki ukuran berbeda (misalnya adalah perbandingan antara ukuran layar PC/Laptop, Tablet, dengan Smartphone). Design yang responsive memastikan bahwa website dapat digunakan secara nyaman, tidak memandang perangkat yang digunakan oleh pengguna. 
 
 Contoh website yang sudah menerapkan responsive design adalah Wikipedia, dimana layout navbar, informasi, dan ukuran teks disesuaikan dengan ukuran layar. Sedangkan, contoh website yang belum menerapkan responsive design adalah SIAK-NG, dimana saat dibuka di layar berukuran kecil, semua tombol dan teks ikut menjadi kecil, sehingga pengguna harus zoom manual agar dapat membaca konten di dalamnya.
