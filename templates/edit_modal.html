@@ -1,0 +1,108 @@
+<div id="editModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-black bg-opacity-70">
+  <div id="editModalContent" class="bg-gray-800 rounded-2xl shadow-lg w-11/12 sm:w-3/5 md:w-1/2 lg:w-2/5 max-h-screen overflow-y-auto border border-gray-700">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-6 border-b border-gray-700">
+      <div>
+        <h3 class="text-xl font-semibold text-white">
+          Edit Product
+        </h3>
+        <p class="text-sm text-gray-400 mt-1">Got something wrong? Don’t fret- let's update some details.</p>
+      </div>
+      <button type="button" class="text-gray-400 hover:text-white rounded-lg p-1.5" onclick="hideEditModal()">
+    </div>
+    <!-- Modal body -->
+    <div class="px-6 py-6 space-y-6">
+      <form id="editProductForm">
+        <input type="hidden" id="edit_id" name="id">
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Name</label>
+          <input type="text" id="edit_name" name="name" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Brand</label>
+          <input type="text" id="edit_brand" name="brand" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Price</label>
+          <input type="number" id="edit_price" name="price" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Stock</label>
+          <input type="number" id="edit_stock" name="stock" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Description</label>
+          <textarea id="edit_description" name="description" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]"></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Category</label>
+          <select id="edit_category" name="category" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]">
+            <option value="footwear">Footwear</option>
+            <option value="accessories">Accessories</option>
+            <option value="supplements">Supplements</option>
+            <option value="jersey">Jersey</option>
+            <option value="ball">Ball</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-300">Thumbnail URL</label>
+          <input type="url" id="edit_thumbnail" name="thumbnail" class="w-full bg-gray-700 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#ff7b00]">
+        </div>
+      </form>
+    </div>
+    <!-- Footer -->
+    <div class="flex justify-end gap-4 p-6 border-t border-gray-700">
+      <button onclick="hideEditModal()" class="px-6 py-2 border border-gray-600 text-gray-400 rounded-md hover:text-gray-200 hover:border-gray-400">Cancel</button>
+      <button type="submit" form="editProductForm" class="bg-[#ff7b00] hover:bg-[#e06d00] text-white px-6 py-2 rounded-md font-medium">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+    function openEditModal(product) {
+        // isi field dengan data product
+        document.getElementById("edit_id").value = product.id;
+        document.getElementById("edit_name").value = product.name;
+        document.getElementById("edit_brand").value = product.brand;
+        document.getElementById("edit_price").value = product.price;
+        document.getElementById("edit_stock").value = product.stock;
+        document.getElementById("edit_description").value = product.description;
+        document.getElementById("edit_category").value = product.category;
+        document.getElementById("edit_thumbnail").value = product.thumbnail;
+
+        const modal = document.getElementById("editModal");
+        const content = document.getElementById("editModalContent");
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            content.classList.remove("opacity-0", "scale-95");
+            content.classList.add("opacity-100", "scale-100");
+        }, 50);
+    }
+
+    function hideEditModal() {
+        const modal = document.getElementById("editModal");
+        const content = document.getElementById("editModalContent");
+        content.classList.remove("opacity-100", "scale-100");
+        content.classList.add("opacity-0", "scale-95");
+        setTimeout(() => {
+            modal.classList.add("hidden");
+        }, 150);
+    }
+
+    document.getElementById("editProductForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const id = document.getElementById("edit_id").value;
+        await fetch(`/edit-product-ajax/${id}/`, {
+            method: "POST",
+            body: new FormData(document.querySelector("#editProductForm")),
+        });
+
+        hideEditModal();
+        showToast("Product updated!", "", "success");
+
+        document.dispatchEvent(new CustomEvent("productAdded"));
+    });
+</script>

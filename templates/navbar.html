@@ -15,9 +15,10 @@
         <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors">
           Home
         </a>
-        <a href="{% url 'main:create_product' %}" class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors">
-          List New Product
-        </a>
+        <button onclick="showModal()" 
+              class="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium py-3 transition-colors w-full text-left">
+              List New Product
+        </button>
       </div>
 
       <!-- Desktop User Section -->
@@ -62,9 +63,10 @@
         <a href="/" class="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium py-3 transition-colors">
           Home
         </a>
-        <a href="{% url 'main:create_product' %}" class="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium py-3 transition-colors">
+        <button onclick="showModal()" 
+          class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors">
           List New Product
-        </a>
+        </button>
       </div>
 
       <!-- Mobile User Section -->

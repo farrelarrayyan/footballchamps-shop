@@ -211,3 +211,59 @@ Referensi: https://www.geeksforgeeks.org/css/comparison-between-css-grid-css-fle
 - Menerapkan styling ke berkas ```main.html``` dan menambahkan tampilan saat produk masih kosong menggunakan static image.
 - Menerapkan styling ke berkas ```product_detail.html``` sesuai dengan tema.
 - Menerapkan styling ke berkas ```create_product.html``` sesuai dengan tema.
+
+# [Tugas 6]
+**1. Apa perbedaan antara synchronous request dan asynchronous request?**
+
+- **Synchronous request**: Aplikasi ditahan dan menunggu sampai suatu operasi selesai. Pengguna harus menunggu sampai operasi selesai agar dapat berinteraksi kembali dengan aplikasi.
+- **Asynchronous request**: Aplikasi tetap berjalan dan responsif, namun operasi tetap dapat berjalan di latar belakang. Saat memproses request, pengguna masih dapat berinteraksi dengan aplikasi.
+
+Referensi: https://stackoverflow.com/questions/16715380/what-is-the-difference-between-asynchronous-and-synchronous-http-request
+
+**2. Bagaimana AJAX bekerja di Django (alur request–response)?**
+
+- Pengguna melakukan aksi/membuat *event* pada halaman web
+- JavaScript akan membuat dan mengirim ```XMLHttpRequest``` ke server Django, yang akan dicocokan dengan URL dan ```views``` yang sesuai
+- Server Django memproses *request* tersebut dan mengembalikan response berupa data JSON (bukan halaman HTML secara penuh)
+- Response dibaca oleh JavaScript dan bagian tertentu dari halaman web akan diperbaharui tanpa memuat ulang total.
+
+**3. Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?**
+
+- **Performa yang lebih baik**: Dengan AJAX, aplikasi dapat menerima data baru dari server tanpa harus refresh halaman secara keseluruhan. Selain meringankan beban server, hal ini juga akan membuat pengalaman pengguna lebih baik karena pengguna merasakan aplikasi yang lebih cepat dan interaktif tanpa interupsi.
+- **Mengurangi penggunaan bandwidth**: Karena dengan AJAX kita dapat memuat ulang hanya sebagian kecil dari sebuah halaman, kita dapat menghemat jumlah data yang ditransfer antara server dan pengguna.
+- **Update data secara real-time**: AJAX dapat digunakan untuk mendapatkan data baru secara berkala tanpa harus membuat pengguna refresh halaman secara manual, sehingga cocok untuk aplikasi yang membutuhkan update data secara live (contoh: aplikasi chat, aplikasi lelang barang)
+
+Referensi:
+- https://www.geeksforgeeks.org/python/how-to-integrate-ajax-with-django-applications/
+- https://magecomp.com/blog/pros-and-cons-of-ajax/
+
+**4. Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?**
+
+- Pastikan AJAX request yang digunakan mengggunakan CSRF token bawaan Django untuk menghindari serangan CSRF.
+- Melakukan validasi dan pembersihan input di server untuk mencegah serangan XSS (Cross-site scripting).
+- Batasi response JSON agar tidak mengirim data sensitif, misalnya password pengguna.
+
+**5. Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?**
+
+--> Karena AJAX dapat membuat aplikasi menerima data baru secara *live* tanpa harus memerlukan refresh halaman secara keseluruhan, aplikasi yang digunakan oleh pengguna akan lebih mudah dipakai, lebih interaktif, dan lebih cepat.
+
+**Walaupun tidak diminta dalam soal tugas 6, berikut adalah penjabaran singkat *step-by-step* saya untuk memenuhi ketentuan tugas:**
+- Membuat komponen toast dengan membuat berkas ```toast.html``` dan ```toast.js``` pada direktori ```static/js``` dan ```templates``` root project.
+- Mengintegrasikan komponen toast ke base template dengan menambahkan tag ```{% include 'toast.html' %}```.
+- Mengedit function ```show_json``` pada ```views.py``` dengan menambahkan import ```JsonResponse``` dan mengubah fungsi agar mengubah objek Product menjadi dictionary, yang nantinya akan dikirimkan dalam bentuk JSON.
+- Memperbaharui template ```main.html``` untuk AJAX dan menambahkan JavaScript inline script ke berkas tersebut.
+- Memperbaharui template ```news_detail.html``` untuk AJAX dan menambahkan JavaScript inline script ke berkas tersebut.
+- Membuat modal untuk create product baru dengan menambahkan berkas ```create_modal.html``` beserta fungsi JavaScript untuk menampilkan dan menyembunyikan modal ke folder templates root project.
+- Menambahkan modal untuk membuat produk baru pada berkas ```base.html``` dengan menambahkan tag ```{% include 'create_modal.html' %}```.
+- Mengimplementasikan penambahan produk baru menggunakan AJAX dengan membuat view ```add_product_entry_ajax``` di ```views.py```, menambahkan URL pattern di ```urls.py```, menambahkan fungsi JavaScript untuk AJAX pada ```create_modal.html```, dan menambahkan event listener ```productAdded``` di ```main.html```.
+- Menambahkan event listener untuk form di ```create_modal.html``` untuk menangani submit form.
+- Mengimport ```strip_tags``` pada ```views.py``` dan ```forms.py``` untuk membersihkan input data dari HTML Tags.
+- Membuat modal ```edit_modal.html```, menambahkan fungsi ```edit_product_entry_ajax``` pada ```views.py```, dan menambahkan urlpattern terkait di ```urls.py``` untuk menerapkan modal update data product.
+- Menambahkan tag ```{% include 'edit_modal.html' %}``` pada ```base.html``` agar dapat diakses dari halaman lain.
+- Membuat modal ```delete_modal.html```, menambahkan fungsi ```delete_product_entry_ajax``` pada ```views.py```, dan menambahkan urlpattern terkait di ```urls.py``` dan mengaitkannya ke tombol delete pada card product untuk menerapkan modal delete data product.
+- Menambahkan tag ```{% include 'delete_modal.html' %}``` pada ```base.html``` agar dapat diakses dari halaman lain.
+- Menambahkan tombol refresh di berkas ```main.html``` dengan memanfaatkan fungsi ```initializeProductPage``` pada script AJAX untuk refresh produk tanpa refresh halaman secara penuh.
+- Mengubah fungsi login menggunakan AJAX dengan merubah berkas ```login.html``` dengan menambahkan form dan script baru, menambahkan fungsi login ajax pada ```views.py```, dan menambahkan urlpattern yang digunakan di ```urls.py```.
+- Mengubah fungsi register menggunakan AJAX dengan merubah berkas ```register.html``` dengan menambahkan form dan script baru, menambahkan fungsi login ajax pada ```views.py```, dan menambahkan urlpattern yang digunakan di ```urls.py```.
+
+
