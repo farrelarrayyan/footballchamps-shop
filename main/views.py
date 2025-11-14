@@ -13,6 +13,8 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
+import requests
+import json
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -246,3 +248,52 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def proxy_image(request):
+    image_url = request.GET.get('url')
+    if not image_url:
+        return HttpResponse('No URL provided', status=400)
+    
+    try:
+        # Fetch image from external source
+        response = requests.get(image_url, timeout=10)
+        response.raise_for_status()
+        
+        # Return the image with proper content type
+        return HttpResponse(
+            response.content,
+            content_type=response.headers.get('Content-Type', 'image/jpeg')
+        )
+    except requests.RequestException as e:
+        return HttpResponse(f'Error fetching image: {str(e)}', status=500)
+    
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        name = strip_tags(data.get("name", ""))
+        brand = strip_tags(data.get("brand", ""))
+        price = data.get("price", 0)
+        stock = data.get("stock", 0)
+        description = strip_tags(data.get("description", ""))
+        category = data.get("category", "")
+        thumbnail = data.get("thumbnail", "")
+        is_popular = data.get("is_popular", False)
+        user = request.user
+
+        new_product = Product(
+            name=name,
+            brand=brand,
+            price=price,
+            stock=stock,
+            description=description,
+            category=category,
+            thumbnail=thumbnail,
+            is_popular=is_popular,
+            user=user,
+        )
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
